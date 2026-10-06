@@ -1,0 +1,107 @@
+{
+  "name": "TrekAI · Trek email reminders",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "kaadu-trip-reminders",
+        "responseMode": "usingRespondToWebhook",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [200, 360],
+      "id": "ea791ab2-f566-450a-8aed-385996af1ee1",
+      "name": "Reminder request received",
+      "webhookId": "kaadu-trip-reminders"
+    },
+    {
+      "parameters": {
+        "jsCode": "const input = $input.first().json.body ?? $input.first().json;\nif (!input.email || !input.travelDate || !input.trekName) throw new Error('Email, travel date, and trek name are required.');\nconst departure = new Date(`${input.travelDate}T09:00:00+05:30`).getTime();\nconst now = Date.now();\nif (!Number.isFinite(departure) || departure <= now + 86400000) throw new Error('Choose a travel date at least one day in the future.');\nconst weekBefore = departure - 7 * 86400000;\nconst dayBefore = departure - 86400000;\nconst firstReminderAt = weekBefore > now ? weekBefore : now + 5000;\nreturn [{ json: { ...input, firstReminderAt: new Date(firstReminderAt).toISOString(), secondReminderAt: new Date(dayBefore).toISOString(), firstReminderSubject: weekBefore > now ? 'Your trek is one week away' : 'Your trek plan is saved' } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [440, 360],
+      "id": "9022e3ca-8dbe-4c97-a96e-17a663a7fdd1",
+      "name": "Prepare reminder schedule"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { ok: true, mode: 'scheduled', message: 'n8n accepted the reminder schedule.', schedule: [{ label: 'One week before', at: $json.firstReminderAt }, { label: 'One day before', at: $json.secondReminderAt }] } }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [700, 180],
+      "id": "50adb7f1-b51b-45da-b31e-e8322383c6bd",
+      "name": "Confirm schedule to website"
+    },
+    {
+      "parameters": {
+        "resume": "specificTime",
+        "dateTime": "={{ $json.firstReminderAt }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [700, 420],
+      "id": "6d20c72f-7d18-4a7a-a092-3727f7c961dc",
+      "name": "Wait for first reminder"
+    },
+    {
+      "parameters": {
+        "fromEmail": "TrekAI demo <demo@example.com>",
+        "toEmail": "={{ $('Prepare reminder schedule').first().json.email }}",
+        "subject": "={{ $('Prepare reminder schedule').first().json.firstReminderSubject }}",
+        "emailFormat": "text",
+        "text": "={{ 'Hi! Your trek to ' + $('Prepare reminder schedule').first().json.trekName + ' is coming up. Starting from ' + ($('Prepare reminder schedule').first().json.origin || 'your city') + '. Pack: ' + ($('Prepare reminder schedule').first().json.packingChecklist || []).join(', ') }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.sendEmail",
+      "typeVersion": 2.1,
+      "position": [960, 420],
+      "id": "e3a8d3e8-e4d0-4acf-8fc0-09a20cfad25f",
+      "name": "Send first trek reminder"
+    },
+    {
+      "parameters": {
+        "resume": "specificTime",
+        "dateTime": "={{ $('Prepare reminder schedule').first().json.secondReminderAt }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [1200, 420],
+      "id": "e19cf67d-0092-4028-8e61-adb3d720e025",
+      "name": "Wait for day-before reminder"
+    },
+    {
+      "parameters": {
+        "fromEmail": "TrekAI demo <demo@example.com>",
+        "toEmail": "={{ $('Prepare reminder schedule').first().json.email }}",
+        "subject": "Tomorrow is trek day · TrekAI checklist",
+        "emailFormat": "text",
+        "text": "={{ 'Your trek to ' + $('Prepare reminder schedule').first().json.trekName + ' is tomorrow. Check your route to the railhead and tickets before you leave. Packing checklist: ' + ($('Prepare reminder schedule').first().json.packingChecklist || []).join(', ') }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.sendEmail",
+      "typeVersion": 2.1,
+      "position": [1460, 420],
+      "id": "23f9f60f-bdec-4aa5-81e3-459e8a7da61c",
+      "name": "Send day-before reminder"
+    }
+  ],
+  "connections": {
+    "Reminder request received": { "main": [[{ "node": "Prepare reminder schedule", "type": "main", "index": 0 }]] },
+    "Prepare reminder schedule": { "main": [[{ "node": "Confirm schedule to website", "type": "main", "index": 0 }, { "node": "Wait for first reminder", "type": "main", "index": 0 }]] },
+    "Wait for first reminder": { "main": [[{ "node": "Send first trek reminder", "type": "main", "index": 0 }]] },
+    "Send first trek reminder": { "main": [[{ "node": "Wait for day-before reminder", "type": "main", "index": 0 }]] },
+    "Wait for day-before reminder": { "main": [[{ "node": "Send day-before reminder", "type": "main", "index": 0 }]] }
+  },
+  "active": false,
+  "settings": { "executionOrder": "v1" },
+  "versionId": "9202f1f5-c3e3-4d58-9a7b-47bedc3d0242",
+  "meta": { "templateCredsSetupCompleted": false },
+  "tags": []
+}

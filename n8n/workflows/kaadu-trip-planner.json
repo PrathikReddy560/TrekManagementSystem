@@ -1,0 +1,55 @@
+{
+  "name": "TrekAI · Trip planning workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "kaadu-trip-plan",
+        "responseMode": "usingRespondToWebhook",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [240, 300],
+      "id": "54ebf42f-40e5-443a-9c1d-357c8cb7f081",
+      "name": "Trip brief received",
+      "webhookId": "kaadu-trip-plan"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://host.docker.internal:4000/api/trip-demo/agent",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ $json.body }}",
+        "options": { "timeout": 180000 }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [500, 300],
+      "id": "d40211de-a334-4b3f-8056-2597ec717bed",
+      "name": "Ask TrekAI trip agent"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [760, 300],
+      "id": "e8ca6783-d88b-4e04-8508-a03d38dd72ac",
+      "name": "Return the trip plan"
+    }
+  ],
+  "connections": {
+    "Trip brief received": { "main": [[{ "node": "Ask TrekAI trip agent", "type": "main", "index": 0 }]] },
+    "Ask TrekAI trip agent": { "main": [[{ "node": "Return the trip plan", "type": "main", "index": 0 }]] }
+  },
+  "active": false,
+  "settings": { "executionOrder": "v1" },
+  "versionId": "79052841-ff68-4fe2-aed2-82c6a80844bb",
+  "meta": { "templateCredsSetupCompleted": true },
+  "tags": []
+}

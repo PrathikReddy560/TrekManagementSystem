@@ -1,0 +1,37 @@
+[
+  { "id": "stay-kp-1", "trekId": "kumara-parvatha", "name": "Bhattara Mane Homestay", "type": "homestay", "pricePerNightInr": 900, "notes": "Family-run, at the trailhead in Kukke Subramanya" },
+  { "id": "stay-kp-2", "trekId": "kumara-parvatha", "name": "Forest Dept. Trek Shed (mid-route)", "type": "basic camp shelter", "pricePerNightInr": 300, "notes": "No electricity, carry your own sleeping bag" },
+
+  { "id": "stay-km-1", "trekId": "kudremukh", "name": "Mullodi Village Homestay", "type": "homestay", "pricePerNightInr": 1000, "notes": "Closest village to the trailhead" },
+  { "id": "stay-km-2", "trekId": "kudremukh", "name": "Kudremukh Wilderness Camp", "type": "tented camp", "pricePerNightInr": 1500, "notes": "Guided camp inside the buffer zone" },
+
+  { "id": "stay-kc-1", "trekId": "kodachadri", "name": "Nittur Homestay", "type": "homestay", "pricePerNightInr": 800, "notes": "Base village stay, jeep pickup available" },
+  { "id": "stay-kc-2", "trekId": "kodachadri", "name": "Hidlumane Falls Camp", "type": "tented camp", "pricePerNightInr": 1200, "notes": "Near a waterfall en route" },
+
+  { "id": "stay-my-1", "trekId": "mullayanagiri", "name": "Chikmagalur Coffee Estate Stay", "type": "estate homestay", "pricePerNightInr": 1800, "notes": "20 min drive from the base" },
+  { "id": "stay-my-2", "trekId": "mullayanagiri", "name": "KSTDC Mayura Hoysala", "type": "budget hotel", "pricePerNightInr": 1400, "notes": "State tourism guesthouse in town" },
+
+  { "id": "stay-bb-1", "trekId": "bababudangiri", "name": "Chikmagalur Coffee Estate Stay", "type": "estate homestay", "pricePerNightInr": 1800, "notes": "Same estate stay serves both Chikmagalur peaks" },
+  { "id": "stay-bb-2", "trekId": "bababudangiri", "name": "KSTDC Mayura Hoysala", "type": "budget hotel", "pricePerNightInr": 1400, "notes": "State tourism guesthouse in town" },
+
+  { "id": "stay-sk-1", "trekId": "skandagiri", "name": "Chikkaballapur Farmstay", "type": "farmstay", "pricePerNightInr": 1100, "notes": "Popular pre-trek stay before a 2am start" },
+  { "id": "stay-sk-2", "trekId": "skandagiri", "name": "Roadside budget lodge", "type": "budget lodge", "pricePerNightInr": 600, "notes": "No-frills, walking distance to the base" },
+
+  { "id": "stay-nh-1", "trekId": "nandi-hills", "name": "Nandi Hills Guest House", "type": "budget hotel", "pricePerNightInr": 1200, "notes": "Government guesthouse near the hilltop gate" },
+  { "id": "stay-nh-2", "trekId": "nandi-hills", "name": "Chikkaballapur Farmstay", "type": "farmstay", "pricePerNightInr": 1100, "notes": "20 min drive from the hill" },
+
+  { "id": "stay-sv-1", "trekId": "savandurga", "name": "Ramanagara Resort", "type": "resort", "pricePerNightInr": 2200, "notes": "Popular with weekend groups from Bengaluru" },
+  { "id": "stay-sv-2", "trekId": "savandurga", "name": "Village homestay near base", "type": "homestay", "pricePerNightInr": 700, "notes": "Basic, walking distance from the monolith" },
+
+  { "id": "stay-ag-1", "trekId": "anthargange", "name": "Kolar budget lodge", "type": "budget lodge", "pricePerNightInr": 650, "notes": "Closest town accommodation" },
+  { "id": "stay-ag-2", "trekId": "anthargange", "name": "Farmstay near Betamangala", "type": "farmstay", "pricePerNightInr": 1000, "notes": "Quieter option 30 min away" },
+
+  { "id": "stay-td-1", "trekId": "tadiandamol", "name": "Nalknad Coffee Homestay", "type": "estate homestay", "pricePerNightInr": 1500, "notes": "Right at the trailhead" },
+  { "id": "stay-td-2", "trekId": "tadiandamol", "name": "Madikeri budget hotel", "type": "budget hotel", "pricePerNightInr": 1300, "notes": "30-40 min drive from base, more amenities" },
+
+  { "id": "stay-kb-1", "trekId": "kunti-betta", "name": "Pandavapura budget lodge", "type": "budget lodge", "pricePerNightInr": 700, "notes": "Simple stay near the base village" },
+  { "id": "stay-kb-2", "trekId": "kunti-betta", "name": "Mysuru city hotel", "type": "budget hotel", "pricePerNightInr": 1200, "notes": "40 min drive, more choice of food and stay" },
+
+  { "id": "stay-yn-1", "trekId": "yana", "name": "Yana Forest Guest House", "type": "forest dept. guesthouse", "pricePerNightInr": 900, "notes": "Basic rooms, needs advance forest dept. booking" },
+  { "id": "stay-yn-2", "trekId": "yana", "name": "Kumta homestay", "type": "homestay", "pricePerNightInr": 1000, "notes": "Near-coast town, 45 min away" }
+]
